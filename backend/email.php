@@ -2,7 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php'; // Adjust the path if necessary
+require 'C:\xampp\htdocs\skypiea\vendor\autoload.php'; // Adjust the path if necessary
 session_start();
 $mail = new PHPMailer(true);
 
@@ -33,6 +33,7 @@ try {
     $mail->send();
     echo 'Email sent successfully! Your code sent is: ' . $randomNumber;
 	//header("Location: auth.php");
+    header("C:\xampp\htdocs\skypiea\backend\auth.php");
 	exit();
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
