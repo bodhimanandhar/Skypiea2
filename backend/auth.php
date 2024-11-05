@@ -18,7 +18,7 @@ if (isset($_SESSION['verification_code'])){
 
 
 if($_POST['code']==$_SESSION['verification_code'])
-{header("C:\Bodhi\New folder\Skypeia\display page\main.html");}
+{header("C:\xampp\htdocs\skypiea\frontend\display page\main.html");}
 else{
 echo"Wrong entry";
 }
