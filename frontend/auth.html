@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Authentication</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="intro.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Verification</h1>
+    <div class="spin">
+      <i class="fas fa-spinner spinner"></i>
+    </div>
+
+    <p>We have sent a code to your registered mail.</p>
+    <p> Please check and enter the code.</p>
+    <form name="Authentication" method="POST" action="http://localhost/skypiea/backend/auth.php">
+      <input type="text" name="code">
+      <button id="button_auth" type="submit">Verify</button>
+    </form>
+  </div>
+</body>
+
+</html>
