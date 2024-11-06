@@ -204,7 +204,7 @@ button:active {
 
 h1 {
   text-align: center;
-  background: linear-gradient(to right, #111184, #ADD8E6);
+  background: linear-gradient(to right, #080849, #262829);
   /* Gradient colors */
   background-clip: text;
 
@@ -215,7 +215,7 @@ h1 {
 
 .spinner {
   /* font-size: 100px; Adjust size as needed */
-  background: linear-gradient(to right, #13B3AC, aquamarine);
+  background: linear-gradient(to right, #077570, aquamarine);
   /* Gradient colors */
   align-items: center;
   background-clip: text;
