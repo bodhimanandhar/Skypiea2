@@ -1,0 +1,210 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    color: #4CAF50;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.container {
+    width: 100%;
+    margin-left: 0px;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #4c9baf;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Styling for anchor links */
+/* General anchor link styles */
+a:link,
+a:visited {
+    background-color:10px white;
+    color: black;
+    border: 2px solid green;
+    padding: 10px 20px;
+    margin:5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;  /* Ensures links are inline but also block-level styled */
+    border-radius: 5px;
+}
+
+a:hover,
+a:active {
+    background-color: green;
+    color: white;
+}
+
+/* Specific styles for actions (Edit, Delete) links */
+.actions a {
+    margin: 0 5px;           /* Adds space between the Edit and Delete links */
+    display: inline-block;   /* Ensures both links are on the same line */
+}
+
+/* Optional: If you want more control over link alignment within the parent container */
+.actions {
+    text-align: left;  /* Aligns the links to the left of the container */
+    margin-top: 10px;  /* Optional: Adds space above the action buttons */
+}
+
+
+.no-records {
+    text-align: center;
+    font-size: 18px;
+    color: #ff5722;
+    font-weight: bold;
+}
+
+.add-record {
+    display: block;
+    text-align: center;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.add-record:hover {
+    background-color: #45a049;
+}
+
+/* Form styling */
+.form-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: rgb(233, 231, 231);
+    border-radius: 8px;    box-shadow:  1px 4px 20px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    border:1px solid black;
+    
+}
+
+h2 {
+    color: #3e2f80;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin: 15px 0 5px;
+    text-align: left;
+    font-size: 14px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #4CAF50;
+    background-color: #ffffff;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+    outline: none;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+input[type="submit"]:active {
+    background-color: #388e3c;
+}
+
+.form-container .input-wrapper {
+    margin-bottom: 20px;
+    
+}
+
+.form-container p {
+    font-size: 14px;
+    color: #777;
+    margin-top: 10px;
+  
+
+}
+
+.form-container p a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.form-container p a:hover {
+    text-decoration: underline;
+}
+
+.form-container .form-title {
+    margin-bottom: 20px;
+}
+.btn {
+    display: inline-block;
+    background-color: #f44336;
+    color: #FFFFFF;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin-left: 20px;
+    opacity: 0.9;
+  }
