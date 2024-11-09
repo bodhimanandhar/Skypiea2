@@ -2,20 +2,20 @@
 session_start();
 require_once __DIR__ . '/dbconfig.php';  // Include database connection
 
-// Get the user input
+// Get the user input (either email or username)
 $user_input = $_POST['user_input'];
 $password = $_POST['password'];
 
-// Clean the input values
+// Clean the input values to prevent SQL Injection
 $user_input = stripslashes($user_input);
 $password = stripslashes($password);
 $user_input = mysqli_real_escape_string($conn, $user_input);
 $password = mysqli_real_escape_string($conn, $password);
 
-// Check if the input is an email or username
+// Check if the input is an email or username (using strpos to detect @ symbol)
 if (strpos($user_input, '@') !== false) {
     // If it's an email address, check the email in the database
-    $stmt = $conn->prepare("SELECT password FROM user WHERE email_address = ?");
+    $stmt = $conn->prepare("SELECT user_id, username, password FROM user WHERE email_address = ?");
     if ($stmt === false) {
         die('MySQL prepare error: ' . $conn->error);
     }
@@ -25,30 +25,21 @@ if (strpos($user_input, '@') !== false) {
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        // If user found, get the stored hashed password
-        $stmt->bind_result($stored_password);
+        // If user found, get the user_id, username, and hashed password
+        $stmt->bind_result($user_id, $username, $stored_password); // Bind user_id, username, and password
         $stmt->fetch();  // Fetch the result
         $stmt->close();
 
         // Verify the entered password against the stored password hash
         if (password_verify($password, $stored_password)) {
-            $stmt = $conn->prepare("SELECT username FROM user WHERE email_address = ?");
- if ($stmt === false) {
-        die('MySQL prepare error: ' . $conn->error);
-    }
-
-        $stmt->bind_param('s', $user_input);  // Bind the email input
-        $stmt->execute();
-        // If user found, get the stored hashed password
-        $stmt->bind_result($_SESSION["username"]);
-        $stmt->fetch();  // Fetch the result
-        $stmt->close();
-
-          
-            header("Location: /skypiea/backend/email.php");  // Redirect to email page
+            // Store the user_id and username in the session
+            $_SESSION["user_id"] = $user_id;
+            $_SESSION["username"] = $username;  // Store username for easy access
+            header("Location: /skypiea/backend/email.php");  // Redirect to email page or dashboard
             exit();
         } else {
-            header("Location: /skypiea/frontend/signin.html");  // Incorrect password
+            // Incorrect password
+            header("Location: /skypiea/frontend/signin.html");
             exit();
         }
     } else {
@@ -58,7 +49,7 @@ if (strpos($user_input, '@') !== false) {
     }
 } else {
     // If it's a username, check the username in the database
-    $stmt = $conn->prepare("SELECT password FROM user WHERE username = ?");
+    $stmt = $conn->prepare("SELECT user_id, password FROM user WHERE username = ?");
     if ($stmt === false) {
         die('MySQL prepare error: ' . $conn->error);
     }
@@ -68,18 +59,21 @@ if (strpos($user_input, '@') !== false) {
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        // If user found, get the stored hashed password
-        $stmt->bind_result($stored_password);
+        // If user found, get the user_id and hashed password
+        $stmt->bind_result($user_id, $stored_password);  // Bind user_id and password
         $stmt->fetch();  // Fetch the result
         $stmt->close();
 
         // Verify the entered password against the stored password hash
         if (password_verify($password, $stored_password)) {
-            $_SESSION["username"] = $user_input;  // Set session variable for username
-            header("Location: /skypiea/backend/email.php");  // Redirect to email page
+            // Store the user_id and username in the session
+            $_SESSION["user_id"] = $user_id;
+            $_SESSION["username"] = $user_input;  // Store username for easy access
+            header("Location: /skypiea/backend/email.php");  // Redirect to email page or dashboard
             exit();
         } else {
-            header("Location: /skypiea/frontend/signin.html");  // Incorrect password
+            // Incorrect password
+            header("Location: /skypiea/frontend/signin.html");
             exit();
         }
     } else {
