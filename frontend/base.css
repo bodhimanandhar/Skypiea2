@@ -138,3 +138,33 @@ h1 {
 .fa-smog {
   color: gray;
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+}
+.navbar h1 {
+  margin: 0;
+}
+.navbar .right {
+  display: flex;
+  align-items: center;
+}
+.navbar .username {
+  margin-right: 15px;
+}
+.navbar .signout-btn {
+  padding: 5px 10px;
+  background-color: #f00;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.signout-btn:hover {
+  background-color: #c00;
+}

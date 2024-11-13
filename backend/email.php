@@ -2,7 +2,13 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 session_start();
-require 'C:\xampp\htdocs\skypiea\vendor\autoload.php';
+
+if (PHP_OS_FAMILY === "Windows") {
+    require 'C:\xampp\htdocs\skypiea\vendor\autoload.php';
+} elseif (PHP_OS_FAMILY === "Linux") {
+    require '../vendor/autoload.php';
+}
+
 require_once __DIR__ . '/dbconfig.php'; 
 
 if (isset($_SESSION['username'])) {
@@ -65,7 +71,7 @@ try {
     $mail->send();
     echo 'Email sent successfully! Your code sent is: ' . $randomNumber;
 	//header("Location: auth.php");
-    header("Location: /skypiea/frontend/auth.html");
+    header("Location: /Skypiea2/frontend/auth.html");
     exit();
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo} ";
