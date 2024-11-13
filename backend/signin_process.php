@@ -35,16 +35,16 @@ if (strpos($user_input, '@') !== false) {
             // Store the user_id and username in the session
             $_SESSION["user_id"] = $user_id;
             $_SESSION["username"] = $username;  // Store username for easy access
-            header("Location: /skypiea/backend/email.php");  // Redirect to email page or dashboard
+            header("Location: /Skypiea2/backend/email.php");  // Redirect to email page or dashboard
             exit();
         } else {
             // Incorrect password
-            header("Location: /skypiea/frontend/signin.html");
+            header("Location: /Skypiea2/frontend/signin.html");
             exit();
         }
     } else {
         // If email doesn't exist
-        header("Location: /skypiea/frontend/signin.html");
+        header("Location: /Skypiea2/frontend/signin.html");
         exit();
     }
 } else {
@@ -69,16 +69,16 @@ if (strpos($user_input, '@') !== false) {
             // Store the user_id and username in the session
             $_SESSION["user_id"] = $user_id;
             $_SESSION["username"] = $user_input;  // Store username for easy access
-            header("Location: /skypiea/backend/email.php");  // Redirect to email page or dashboard
+            header("Location: /Skypiea2/backend/email.php");  // Redirect to email page or dashboard
             exit();
         } else {
             // Incorrect password
-            header("Location: /skypiea/frontend/signin.html");
+            header("Location: /Skypiea2/frontend/signin.html");
             exit();
         }
     } else {
         // If username doesn't exist
-        header("Location: /skypiea/frontend/signin.html");
+        header("Location: /Skypiea2/frontend/signin.html");
         exit();
     }
 }

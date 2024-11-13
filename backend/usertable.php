@@ -23,7 +23,7 @@ $result = mysqli_query($conn, $sql);
 <body>
     <div class="container">
     <h1>Users</h1>
-    <a href="http://localhost/skypiea/frontend/main.html"><i class="fas fa-arrow-left"></i></a>
+    <a href="http://localhost/Skypiea2/frontend/main.php"><i class="fas fa-arrow-left"></i></a>
     <a href="usertable_add.php">Add Record</a>
 
     <br><br>

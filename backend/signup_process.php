@@ -30,7 +30,7 @@ if ($stmt->execute()) {
     $_SESSION["username"] = $username;  // Store username in session
 
     // Redirect to the email page after successful signup
-    header("Location: /skypiea/backend/email.php");
+    header("Location: /Skypiea2/backend/email.php");
     exit();  // Ensure no further code is executed after the redirect
 } else {
     // If insertion fails, output the error

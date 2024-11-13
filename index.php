@@ -5,10 +5,10 @@ session_start();
 $username = $_SESSION["username"];
 
 if(!isset($username)){
-    echo("okaa");
     header("Location: ./frontend/signin.html");
+    return;
 }
 
-header("Location: ./frontend/main.html")
+header("Location: ./frontend/main.php")
 
 ?>

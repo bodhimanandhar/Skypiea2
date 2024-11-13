@@ -24,7 +24,7 @@ echo "Session code: " . $code1 . "<br>";
 // Compare the submitted 'code' with the session's 'verification_code'
 if ($code == $code1) {
     // Make sure this is placed before any output (echo statements)
-    header("Location: http://localhost/skypiea/frontend/main.html");
+    header("Location: http://localhost/Skypiea2/frontend/main.php");
     exit; // Don't forget to call exit after header redirection
 } else {
     echo "Wrong entry";
