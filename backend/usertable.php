@@ -52,7 +52,7 @@ $result = mysqli_query($conn, $sql);
 <body>
     <div class="container">
         <h1>Users</h1>
-        <a href="http://localhost/Skypiea/frontend/main.php"><i class="fas fa-arrow-left"></i></a>
+        <a href="http://localhost/Skypiea2/frontend/main.php"><i class="fas fa-arrow-left"></i></a>
 
         <!-- Show "Add Record" link only if the user has manage_users permission -->
         <?php if (!empty($user_permissions['manage_users'])): ?>

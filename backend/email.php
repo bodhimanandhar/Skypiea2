@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\Exception;
 session_start();
 
 if (PHP_OS_FAMILY === "Windows") {
-    require 'C:\xampp\htdocs\skypiea\vendor\autoload.php';
+    require 'C:\xampp\htdocs\skypiea2\vendor\autoload.php';
 } elseif (PHP_OS_FAMILY === "Linux") {
     require '../vendor/autoload.php';
 }
