@@ -243,11 +243,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             background-color: #f5f5f5;
         }
     </style>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <!-- Form to add a new role -->
         <div class="form-container">
+        <a href="http://localhost/Skypiea2/frontend/main.php" style="float:left"><i class="fas fa-arrow-left"></i></a>
             <h2>Create New Role and Assign Permissions</h2>
             <form action="" method="POST">
                 <div class="input-wrapper">

@@ -33,12 +33,13 @@ if (!isset($username)) {
             <button onclick="window.location='../backend/for_roles.php'" type="submit" class="signout-btn">AddRole</button>
             <button onclick="window.location='../backend/for_role_update.php'" type="submit" class="signout-btn">UpdateRole</button>
             <button onclick="window.location='./findtemp.html'" type="submit" class="signout-btn">FindWeather</button>
+            
         </div>
     </div>
 
     <div id="container" style="width:100%; height:400px;"></div>
 
-    <div style="width: 80%; text-align:center;"">
+    <div style="width: 80%; text-align:center;">
         <div id="temperature_list" style="float:left; margin-left: 10%">
             Average Temp<div style="font-size: 2rem;" id="average">
             </div>

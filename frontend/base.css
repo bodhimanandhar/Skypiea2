@@ -140,12 +140,12 @@ h1 {
 }
 
 .navbar {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #333;
-  color: #fff;
 }
 .navbar h1 {
   margin: 0;
@@ -158,13 +158,27 @@ h1 {
   margin-right: 15px;
 }
 .navbar .signout-btn {
-  padding: 5px 10px;
-  background-color: #f00;
-  color: #fff;
+  background-color:green;
+  color: white;
+  padding: 10px 15px;
+  margin-left: 10px;
   border: none;
   cursor: pointer;
-  border-radius: 3px;
 }
-.signout-btn:hover {
-  background-color: #c00;
+.navbar .signout-btn a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar .signout-btn:hover {
+  background-color: #2980b9;
+}
+
+a {
+  text-decoration: none;
+  color: #faf7f7;
+}
+
+a:hover {
+  text-decoration: none;
 }

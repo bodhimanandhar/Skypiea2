@@ -35,7 +35,22 @@ if (strpos($user_input, '@') !== false) {
             // Store the user_id and username in the session
             $_SESSION["user_id"] = $user_id;
             $_SESSION["username"] = $username;  // Store username for easy access
-            header("Location: /Skypiea2/backend/email.php");  // Redirect to email page or dashboard
+
+            // Log the successful sign-in
+            $log_message = "User signed in: " . $username;
+            $log_stmt = $conn->prepare("INSERT INTO logs (user_id, log_message) VALUES (?, ?)");
+            $log_stmt->bind_param("is", $user_id, $log_message);
+
+            if (!$log_stmt->execute()) {
+                // If logging fails, output the error
+                echo "Error logging the action: " . $log_stmt->error;
+            }
+
+            // Close the log statement
+            $log_stmt->close();
+
+            // Redirect to the email page or dashboard
+            header("Location: /Skypiea2/backend/email.php");  
             exit();
         } else {
             // Incorrect password
@@ -69,7 +84,22 @@ if (strpos($user_input, '@') !== false) {
             // Store the user_id and username in the session
             $_SESSION["user_id"] = $user_id;
             $_SESSION["username"] = $user_input;  // Store username for easy access
-            header("Location: /Skypiea2/backend/email.php");  // Redirect to email page or dashboard
+
+            // Log the successful sign-in
+            $log_message = "User signed in: " . $user_input;
+            $log_stmt = $conn->prepare("INSERT INTO logs (user_id, log_message) VALUES (?, ?)");
+            $log_stmt->bind_param("is", $user_id, $log_message);
+
+            if (!$log_stmt->execute()) {
+                // If logging fails, output the error
+                echo "Error logging the action: " . $log_stmt->error;
+            }
+
+            // Close the log statement
+            $log_stmt->close();
+
+            // Redirect to the email page or dashboard
+            header("Location: /Skypiea2/backend/email.php");  
             exit();
         } else {
             // Incorrect password
