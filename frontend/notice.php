@@ -128,12 +128,14 @@ $result = mysqli_query($conn, $sql);
         <form action="../backend/signout.php" method="POST" style="display:inline;">
             <button type="submit">Sign Out</button>
         </form>
-        <button><a href="mailto:espemaliservice@gmail.com">Mail</a></button>
-        <button onclick="window.location='notice.php'">Notice</button>
-        <button onclick="window.location='../backend/usertable.php'">UserTable</button>
-        <button onclick="window.location='../backend/for_roles.php'">AddRole</button>
-        <button onclick="window.location='../backend/for_role_update.php'">UpdateRole</button>
-        <button onclick="window.location='./findtemp.html'">FindWeather</button>
+        <button type="submit" class="signout-btn"><a href="mailto:espemaliservice@gmail.com">Mail</a></button>
+        <button onclick="window.location='notice.php'" type="submit" class="signout-btn">Notice</button>
+        <button onclick="window.location='./findtemp.php'" type="submit" class="signout-btn">FindWeather</button>
+        <?php if (!empty($user_permissions['edit_data'])): ?>
+            <button onclick="window.location='../backend/usertable.php'" type="submit" class="signout-btn">UserTable</button>
+            <button onclick="window.location='../backend/for_roles.php'" type="submit" class="signout-btn">AddRole</button>
+            <button onclick="window.location='../backend/for_role_update.php'" type="submit" class="signout-btn">UpdateRole</button>
+        <?php endif; ?>
     </div>
 </div>
 <br>
