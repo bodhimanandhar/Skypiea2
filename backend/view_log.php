@@ -76,7 +76,7 @@ $result = $stmt->get_result();
 <body>
 
 <div class="container">
-    <h1>Log Viewer</h1>
+<h1 style="font-size:50px;margin-top: -140px;">Log Viewer</h1>
     <div style="display: flex; align-items: center; justify-content: flex-start; gap: 15px;">
     <!-- Arrow Icon -->
     <a href="http://localhost/Skypiea2/frontend/main.php" style="font-size: 19px; color: #333; text-decoration: none; display: inline-flex; align-items: center;margin-top: -9px;">
