@@ -33,7 +33,8 @@ if ($role_id) {
     $stmt->execute();
     $permissions_result = $stmt->get_result();
     $user_permissions = $permissions_result->fetch_assoc();
-} else {
+}
+else {
     echo "Role ID not found for the user.";
 }
 
@@ -68,6 +69,7 @@ if ($role_id) {
             <button onclick="window.location='../backend/usertable.php'" type="submit" class="signout-btn">UserTable</button>
             <button onclick="window.location='../backend/for_roles.php'" type="submit" class="signout-btn">AddRole</button>
             <button onclick="window.location='../backend/for_role_update.php'" type="submit" class="signout-btn">UpdateRole</button>
+            <button onclick="window.location='../backend/view_log.php'" type="submit" class="signout-btn">Log</button>
         <?php endif; ?>
         </div>
     </div>

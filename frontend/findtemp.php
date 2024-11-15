@@ -68,6 +68,7 @@ $result = mysqli_query($conn, $sql);
             <button onclick="window.location='../backend/usertable.php'" type="submit" class="signout-btn">UserTable</button>
             <button onclick="window.location='../backend/for_roles.php'" type="submit" class="signout-btn">AddRole</button>
             <button onclick="window.location='../backend/for_role_update.php'" type="submit" class="signout-btn">UpdateRole</button>
+            <button onclick="window.location='../backend/view_log.php'" type="submit" class="signout-btn">Log</button>
         <?php endif; ?>
         </div>
     </div>

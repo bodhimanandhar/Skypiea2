@@ -10,32 +10,15 @@ if (!isset($_SESSION['username'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Fetch the logged-in user's role
-$sql = "SELECT role_id FROM user WHERE user_id = ?";
-$stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, 'i', $user_id);
-mysqli_stmt_execute($stmt);
-mysqli_stmt_bind_result($stmt, $role_id);
-mysqli_stmt_fetch($stmt);
-mysqli_stmt_close($stmt);
-
 // Fetch roles for the dropdown
 $role_sql = "SELECT * FROM roles";
 $role_result = mysqli_query($conn, $role_sql);
 
-// Initialize permission variables with default values
-$view_all_data = 0;
-$edit_data = 0;
-$manage_users = 0;
-$view_log = 0;
-
 // Handle form submission to update permissions
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['role_id'])) {
-        // Get the role ID from the submitted form
+        // Get the role ID and permissions from the submitted form
         $role_id_to_update = $_POST['role_id'];
-        
-        // Get the permission values from the checkboxes
         $permissions = [
             'view_all_data' => isset($_POST['view_all_data']) ? 1 : 0,
             'edit_data' => isset($_POST['edit_data']) ? 1 : 0,
@@ -43,41 +26,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'view_log' => isset($_POST['view_log']) ? 1 : 0,
         ];
 
-        // Fetch the permission ID for the selected role
-        $get_permission_sql = "
-            SELECT p.permission_id
-            FROM role_permissions rp
-            JOIN permissions p ON rp.permission_id = p.permission_id
-            WHERE rp.role_id = ?
+        // Update the permissions in the database
+        $update_permissions_sql = "
+            UPDATE permissions
+            SET view_all_data = ?, edit_data = ?, manage_users = ?, view_log = ?
+            WHERE permission_id = ?
         ";
-        $stmt = mysqli_prepare($conn, $get_permission_sql);
-        mysqli_stmt_bind_param($stmt, 'i', $role_id_to_update);
+        $stmt = mysqli_prepare($conn, $update_permissions_sql);
+        mysqli_stmt_bind_param($stmt, 'iiiii',
+            $permissions['view_all_data'],
+            $permissions['edit_data'],
+            $permissions['manage_users'],
+            $permissions['view_log'],
+            $role_id_to_update
+        );
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $permission_id);
-        mysqli_stmt_fetch($stmt);
         mysqli_stmt_close($stmt);
 
-        // If a permission ID exists, update it
-        if ($permission_id) {
-            // Update the permissions in the database
-            $update_permissions_sql = "
-                UPDATE permissions
-                SET view_all_data = ?, edit_data = ?, manage_users = ?, view_log = ?
-                WHERE permission_id = ?
-            ";
-            $stmt = mysqli_prepare($conn, $update_permissions_sql);
-            mysqli_stmt_bind_param($stmt, 'iiiii',
-                $permissions['view_all_data'],
-                $permissions['edit_data'],
-                $permissions['manage_users'],
-                $permissions['view_log'],
-                $permission_id
-            );
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
+        // Log the update action
+        $log_message = "Updated permissions for role ID: {$role_id_to_update}";
+        $admin_user_id = $_SESSION['user_id']; // Logged-in user performing the action
+        $log_stmt = mysqli_prepare($conn, "INSERT INTO logs (user_id, log_message) VALUES (?, ?)");
+        mysqli_stmt_bind_param($log_stmt, 'is', $admin_user_id, $log_message);
+        mysqli_stmt_execute($log_stmt);
+        mysqli_stmt_close($log_stmt);
 
-            echo "<script>alert('Role permissions updated successfully!');</script>";
-        }
+        echo "<script>alert('Role permissions updated successfully!');</script>";
     }
 
     // Handle role deletion
@@ -98,13 +72,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
 
+        // Log the deletion action
+        $log_message = "Deleted role ID: {$delete_role_id}";
+        $admin_user_id = $_SESSION['user_id']; // Logged-in user performing the action
+        $log_stmt = mysqli_prepare($conn, "INSERT INTO logs (user_id, log_message) VALUES (?, ?)");
+        mysqli_stmt_bind_param($log_stmt, 'is', $admin_user_id, $log_message);
+        mysqli_stmt_execute($log_stmt);
+        mysqli_stmt_close($log_stmt);
+
         echo "<script>alert('Role deleted successfully!');</script>";
     }
 }
 
-// If a role is selected, fetch the current permissions for that role
-if (isset($_POST['role_id']) || isset($role_id)) {
-    $role_id_to_edit = isset($_POST['role_id']) ? $_POST['role_id'] : $role_id;
+// Fetch permissions for the selected role
+if (isset($_POST['role_id'])) {
+    $role_id_to_edit = $_POST['role_id'];
     
     $permissions_sql = "
         SELECT p.view_all_data, p.edit_data, p.manage_users, p.view_log
@@ -129,7 +111,7 @@ if (isset($_POST['role_id']) || isset($role_id)) {
     <title>Manage Roles and Permissions</title>
     <link href="usertable.css" rel="stylesheet" type="text/css">
     <style>
-        /* Styling for form and toggle switches (same as before) */
+        /* Styling for form and toggle switches */
         .container {
             display: flex;
             max-width: 1200px;
@@ -190,7 +172,6 @@ if (isset($_POST['role_id']) || isset($role_id)) {
             transform: translateX(30px);
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
@@ -252,19 +233,4 @@ if (isset($_POST['role_id']) || isset($role_id)) {
         <div class="form-container">
             <h2>Delete Role</h2>
             <form action="" method="POST">
-                <label for="delete_role_id">Select Role to Delete:</label>
-                <select name="delete_role_id" id="delete_role_id" required>
-                    <option value="">-- Select a Role --</option>
-                    <?php
-                    mysqli_data_seek($role_result, 0); // Reset role result pointer to show all roles
-                    while ($role = mysqli_fetch_assoc($role_result)) {
-                        echo "<option value='{$role['role_id']}'>{$role['role_name']}</option>";
-                    }
-                    ?>
-                </select>
-                <button type="submit" onclick="return confirm('Are you sure you want to delete this role?');">Delete Role</button>
-            </form>
-        </div>
-    </div>
-</body>
-</html>
+                <label for="delete
