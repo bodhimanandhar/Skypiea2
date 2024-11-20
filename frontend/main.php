@@ -102,79 +102,65 @@ else {
     </div>
 
 </body>
-
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        fetch('../backend/retrieve.php')
-            .then(response => response.json())
-            .then(data => {
-                const temperatures = data.map(item => parseFloat(item.temperature));
-                const humidities = data.map(item => parseFloat(item.humidity));
-                const categories = data.map((_, index) => `Reading ${index + 1}`);
+        // Fetch data from backend
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../backend/retrieve.php')
+                .then(response => response.json())
+                .then(data => {
+                    // Extract temperature, humidity, and timestamps
+                    const temperatures = data.map(item => parseFloat(item.temperature));
+                    const humidities = data.map(item => parseFloat(item.humidity));
+                    const times = data.map(item => item.times); // This will be used as categories
 
-                Highcharts.chart('container', {
-                    chart: {
-                        type: 'line'
-                    },
-                    title: {
-                        text: 'Temperature and Humidity Readings'
-                    },
-                    xAxis: {
-                        categories: categories,
+                    // Create Highcharts chart
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'line'
+                        },
                         title: {
-                            text: 'Readings'
-                        }
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Values'
-                        }
-                    },
-                    series: [{
-                        name: 'Temperature',
-                        data: temperatures
-                    }, {
-                        name: 'Humidity',
-                        data: humidities
-                    }]
-                });
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    });
-</script>
+                            text: 'Temperature and Humidity Readings'
+                        },
+                        xAxis: {
+                            categories: times, // Use the timestamps for the X-axis
+                            title: {
+                                text: 'Time'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Values'
+                            }
+                        },
+                        series: [{
+                            name: 'Temperature (°C)',
+                            data: temperatures
+                        }, {
+                            name: 'Humidity (%)',
+                            data: humidities
+                        }]
+                    });
 
+                    // Calculate and display stats for temperature
+                    let tempArray = temperatures;
+                    let tempAvg = tempArray.reduce((sum, val) => sum + val, 0) / tempArray.length;
+                    let tempMin = Math.min(...tempArray);
+                    let tempMax = Math.max(...tempArray);
+                    document.getElementById("average").innerText = tempAvg.toFixed(1);
+                    document.getElementById("min").innerText = tempMin.toFixed(1);
+                    document.getElementById("max").innerText = tempMax.toFixed(1);
 
-<script>
-    async function filldata() {
-        const response = await fetch("../backend/retrieve.php")
-        const data = await response.json()
-        let temp_array = [];
-        for (v in data) {
-            temp_array.push(data[v]['temperature'])
-        }
-        let avg = 0;
-        for (let i = 0; i < temp_array.length; i++) {
-            avg += temp_array[i]
-        }
-        document.getElementById("average").innerText = (avg / temp_array.length).toFixed(1)
-        document.getElementById("min").innerText = (Math.min(...temp_array)).toFixed(1)
-        document.getElementById("max").innerText = (Math.max(...temp_array)).toFixed(1)
-
-
-        let humidity_array = [];
-        for (v in data) {
-            humidity_array.push(data[v]['humidity'])
-        }
-        avg = 0;
-        for (let i = 0; i < humidity_array.length; i++) {
-            avg += humidity_array[i]
-        }
-        document.getElementById("average_h").innerText = (avg / humidity_array.length).toFixed(1)
-        document.getElementById("min_h").innerText = (Math.min(...humidity_array)).toFixed(1)
-        document.getElementById("max_h").innerText = (Math.max(...humidity_array)).toFixed(1)
-    }
-    filldata();
-</script>
-
+                    // Calculate and display stats for humidity
+                    let humidityArray = humidities;
+                    let humidityAvg = humidityArray.reduce((sum, val) => sum + val, 0) / humidityArray.length;
+                    let humidityMin = Math.min(...humidityArray);
+                    let humidityMax = Math.max(...humidityArray);
+                    document.getElementById("average_h").innerText = humidityAvg.toFixed(1);
+                    document.getElementById("min_h").innerText = humidityMin.toFixed(1);
+                    document.getElementById("max_h").innerText = humidityMax.toFixed(1);
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+    </script>
 </html>

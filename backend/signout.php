@@ -1,5 +1,8 @@
 <?php
+require_once __DIR__ . '/dbconfig.php'; 
 session_start();
+$username = $_SESSION['username'];
+$user_id = $_SESSION["user_id"]; 
 $log_message = "User signed out: " . $username;
 $log_stmt = $conn->prepare("INSERT INTO logs (user_id, log_message) VALUES (?, ?)");
 $log_stmt->bind_param("is", $user_id, $log_message);
