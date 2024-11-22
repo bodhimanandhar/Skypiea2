@@ -64,6 +64,7 @@ $result = mysqli_query($conn, $sql);
         <button type="submit" class="signout-btn"><a href="mailto:espemaliservice@gmail.com">Mail</a></button>
         <button onclick="window.location='notice.php'" type="submit" class="signout-btn">Notice</button>
         <button onclick="window.location='./findtemp.html'" type="submit" class="signout-btn">FindWeather</button>
+        <button onclick="window.location='../backend/predict_energy.php'" type="submit" class="signout-btn">Predict Energy</button>
         <?php if (!empty($user_permissions['edit_data'])): ?>
             <button onclick="window.location='../backend/usertable.php'" type="submit" class="signout-btn">UserTable</button>
             <button onclick="window.location='../backend/for_roles.php'" type="submit" class="signout-btn">AddRole</button>
